@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Neuton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css' integrity='sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA' crossorigin='anonymous'>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js' integrity='sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp' crossorigin='anonymous'></script>
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'nsa_app/css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <h1 class="page_title">No Strings Attached</h1>
+        <a href="/logout"><img src="{% static 'nsa_app/images/logo.png' %}" class="img-fluid the_logo"></a>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <h1 class="display-4">Welcome, {{user.first_name}}!</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="/edit/{{user.city.id}}" method="POST"  enctype="multipart/form-data">
+                    {% csrf_token%}
+                    <h2 class="edit">Edit your profile information:</h2>
+                    <p>First Name:
+                        <br><input type="text" name="edit_first_name" class="edit_form" value="{{user.first_name}}">
+                        <br>Last Name:
+                        <input type="text" name="edit_last_name" class="edit_form" value="{{user.last_name}}">
+                        <br>Username:
+                        <br><input type="text" name="edit_username" class="edit_form" value="{{user.username}}">
+                        <br>Update Location:
+                        <br><select name="city">
+                            <option value="{{user.city.id}}" selected>Choose Here</option>
+                                {% for city in cities %}
+                                <option value="{{city.id}}">{{city.name}}</option>
+                                {% endfor %}
+                            </select>
+            </div>
+            <div class="col">
+                    <p>Interests:
+                    <br><textarea name="edit_interests" rows="4" class="interests">{{user.interests}}</textarea>
+                    <p>Email Address:
+                    <br><input type="text" name="edit_email" class="edit_form" value="{{user.email}}">
+                    <br>Change Profile Picture:
+                    <br><input type="file" name="edit_photo" class="edit_form">
+                    <br><button type="submit" class="btn btn-info login_form">Confirm Changes</button>
+                </div>
+            </form>
+            <!-- <br>Current Password:
+            <br><input type="password" name="current_password" class="edit_form">
+            <br>New Password:
+            <br><input type="password" name="edit_password" class="edit_form">
+            <br>Confirm New Password:
+            <br><input type="password" name="confirm_password" class="edit_form"> -->
+        </div>
+        <div class="row">
+            <div class="col">
+                <br><a href="/events_feed/{{user.city.id}}"><button type="submit" class="btn btn-primary login_form">Go to Events Feed</button></a>
+            </div>
+        </div>
+    </div>
+</body>

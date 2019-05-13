@@ -1,0 +1,47 @@
+body {
+    background-color: rgb(205, 224, 252);
+    color: rgb(0, 0, 0);
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+}
+.city_word {
+    font-family: 'Secular One', sans-serif;
+}
+.logo {
+    width: 30%;
+}
+.the_logo {
+    width: 40px;
+}
+.username {
+    font-family: 'Nunito Sans', sans-serif;
+}
+.title_container {
+    margin-top: 1em;
+}
+.page_title {
+    font-family: 'Neuton', serif;
+}
+.login_form {
+    margin-bottom: 1em;
+    width: 100%;
+}
+.signup_form {
+    margin-bottom: 0.5em;
+    width: 100%;
+    border-radius: 5px;
+}
+.signup_form {
+    border-radius: 5px;
+}
+.edit_form {
+    margin-bottom: 0.5em;
+    border-radius: 5px;
+    width: 100%;
+}
+.messages {
+    color: red;
+}
+.interests {
+    width: 100%;
+}

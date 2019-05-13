@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Neuton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css' integrity='sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA' crossorigin='anonymous'>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js' integrity='sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp' crossorigin='anonymous'></script>
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'nsa_app/css/profile_style.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <h1 class="page_title">No Strings Attached</h1>
+        <a href="/logout"><img src="{% static 'nsa_app/images/logo.png' %}" class="img-fluid logo"></a>
+    </nav>
+    <div class="container" style='text-align: right; margin-top: 1em;'>
+        <div class="col">
+        </div>
+    </div>
+    <div class="container main_container">
+        <div class="container">
+            <hr>
+            <div class="row">
+                <div class="col-3 card-body dashboard" style="text-align: center;">
+                    <img src="{{ user.photo.url }}" alt="user_profile_pic" class="card-img-top profile_pic">
+                        <h3 class="username">{{user.first_name}} {{user.last_name}}</h3>
+                        <h2 style="display:inline-block;"><ion-icon name="text"></ion-icon></h2><a href="/user_messages/{{user.id}}"><button type="submit" class="btn btn-primary dash_button">Strings</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="image"></ion-icon></h2><a href="/events_feed/{{user.city.id}}"><button type="submit" class="btn btn-primary dash_button">Events Feed</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="image"></ion-icon></h2><a href="/user_profile"><button type="submit" class="btn btn-primary dash_button">Post an Event</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="person"></ion-icon></h2><a href="/success"><button type="submit" class="btn btn-primary dash_button">Edit Profile</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="exit"></ion-icon></h2><a href="/logout"><button class="btn btn-warning my-2 my-sm-0 dash_button" type="submit">Logout</button></a>
+                </div>
+                <hr>
+                <div class="container col-9 bottom">
+                            <form action="/apply_event_changes" method="POST" enctype="multipart/form-data">
+                                {% csrf_token%}
+                                {% for event in events %}
+                                <div class="row col"><h2>{{event.title}}:</h2></div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <img src="{{event.photo.url}}" class="event_photo img-fluid">
+                                        <br><br><input type="file" name="edit_photo" class="edit_form">
+                                    </div>
+                                    <div class="col-6">
+                                        <p>Location:<input type='text' name='location' value='{{event.city.name}}'></p>
+                                        <p>Date: {{event.when}}<input type="datetime-local" name="when" datetime='{{event.when}}'></p>
+                                        <p>Description: <textarea name="description" rows="4" class="event_input">{{event.description}}</textarea></p>
+                                        No Strings Attached?
+                                        <br><select name="nsa">
+                                            <option value="no">No Strings Attached</option>
+                                            <option value="yes">Yes Strings Attached</option>
+                                            <option value="maybe">Not sure yet</option>
+                                            </select>
+                                        <br><br><p>People attending: {{event.users.count}}</p>
+                                        <input type="hidden" name='event' value='{{event.id}}'>
+                                        <button type="submit" class='btn btn-success'>Apply Event Changes</button>
+                                    </div>
+                                </div>
+                                <hr>
+                            </form>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>
+</body>
+</html>

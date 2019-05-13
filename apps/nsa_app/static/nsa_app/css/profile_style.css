@@ -1,0 +1,51 @@
+body {
+    background-color: rgb(205, 224, 252);
+    color: rgb(0, 0, 0);
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+}
+.logo{
+    width: 40px;
+}
+.username {
+    font-family: 'Nunito Sans', sans-serif;
+}
+.title_container {
+    margin-top: 1em;
+}
+.page_title {
+    font-family: 'Neuton', serif;
+}
+.dash_button {
+    margin-bottom: 1.2em;
+    width: 85%;
+    font-size: 0.8em;
+}
+.messages {
+    color: red;
+}
+.dashboard {
+    padding: 5px;
+}
+.profile_pic {
+    max-width: 100%;
+    border-radius: 25px;
+    margin-bottom: 10px;
+}
+.city {
+    width: 100%;
+    border-radius: 0.6em;
+}
+.bottom {
+    color: black;
+}
+.city_text {
+    margin-top: 2px;
+    text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+.event_input {
+    width: 100%;
+}
+.event_photo {
+    border-radius: 10px;
+}

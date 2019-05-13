@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Neuton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Secular+One" rel="stylesheet">
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css' integrity='sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA' crossorigin='anonymous'>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js' integrity='sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp' crossorigin='anonymous'></script>
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'nsa_app/css/events_style.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <h1 class="page_title">No Strings Attached</h1>
+        <a href="/logout"><img src="{% static 'nsa_app/images/logo.png' %}" class="img-fluid logo"></a>
+    </nav>
+    <div class="container" style='text-align: right; margin-top: 1em;'>
+        <div class="col">
+        </div>
+    </div>
+    <div class="container main_container">
+        <div class="">
+            <div class="city_feed testimonial-group">
+                <div class="row justify-content-center">
+                    <h2 class="display-5 city_word">Cities</h2>
+                </div>
+                <hr>
+                <div class=" city_icons">
+                    {% for city in cities %}
+                    <div class="city_card">
+                        <a href="/filter_city/{{city.id}}">
+                            <img src="{{ city.photo.url }}" alt="{{city.name}}" class="city_icon">
+                            <br>{{city.name}}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-3 card-body dashboard" style="text-align: center;">
+                    <img src="{{ user.photo.url }}" alt="user_profile_pic" class="card-img-top profile_pic">
+                        <h3 class="username">{{user.first_name}} {{user.last_name}}</h3>
+                        <h2 style="display:inline-block;"><ion-icon name="add-circle"></ion-icon></h2><a href="/post_an_event/{{user.city.id}}"><button type="submit" class="btn btn-primary dash_button">Post Event</button></a>
+                        <h2 style="display:inline-block;"><ion-icon name="text"></ion-icon></h2><a href="/user_messages"><button type="submit" class="btn btn-primary dash_button">Strings</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="image"></ion-icon></h2><a href="/user_profile/{{user.id}}"><button type="submit" class="btn btn-primary dash_button">Profile</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="calendar"></ion-icon></h2><a href="/edit_events"><button type="submit" class="btn btn-primary dash_button">Edit Events</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="person"></ion-icon></h2><a href="/success"><button type="submit" class="btn btn-primary dash_button">Edit Profile</button></a>
+                        <br><h2 style="display:inline-block;"><ion-icon name="exit"></ion-icon></h2><a href="/logout"><button class="btn btn-warning my-2 my-sm-0 dash_button" type="submit">Logout</button></a>
+                </div>
+                <div class="col-9">
+                    <div style="position: absolute;">
+                        <h1 class="city_text display-4" style="margin-left: 10px; color: white; position: relative; z-index: 1;">{{city.name}}</h1>
+                    </div>
+                    <div class="top" style="position: relative">
+                        <img src="{{city.wide_photo.url}}" alt="{{city.name}}" class="city" style="z-index: -1;">
+                    </div>
+                    <div class="bottom">
+                        <hr>
+                        {% for event in events %}
+                        <form action="/apply" method="POST">
+                            {% csrf_token%}
+                        <div class="row col"><h2>{{event.title}}:</h2></div>
+                        <div class="row">
+                            <div class="col-7">
+                                <img src="{{event.photo.url}}" class="event_photo img-fluid city"> 
+                            </div>
+                            <div class="col-5">
+                                <p style="font-weight: bold">Location: {{event.city.name}}</p>
+                                <p>Date: {{event.when}}</p>
+                                <p>{{event.description}}</p>
+                                <a href="/user_profile/{{event.admin.id}}"><p>Posted By: {{event.admin.first_name}} {{event.admin.last_name}}</p></a>
+                                <p>People attending: {{event.users.count}}</p>
+                                <input type="hidden" name='event' value='{{event.id}}'>
+                                <button type="submit" class='btn btn-success'>Apply to {{event.admin.first_name}}'s event</button>
+                            </div>
+                        </div>
+                        <hr>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>
+</body>
+</html>

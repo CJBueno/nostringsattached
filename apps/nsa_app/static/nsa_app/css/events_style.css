@@ -1,0 +1,89 @@
+body {
+    background-color: rgb(205, 224, 252);
+    color: rgb(0, 0, 0);
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+}
+.city_word {
+    font-family: 'Secular One', sans-serif;
+}
+.logo {
+    max-width: 40px;
+}
+.username {
+    font-family: 'Nunito Sans', sans-serif;
+}
+.title_container {
+    margin-top: 1em;
+}
+.page_title {
+    font-family: 'Neuton', serif;
+}
+.city_feed {
+    margin-bottom: 5px;
+}
+.city_card {
+    text-align: center;
+    width: 20%;
+    padding: 0 50px 0 0;
+    font-size: 0.8em;
+}
+.city_icons {
+    display: flex;
+    overflow-x:auto;
+}
+.city_icons::-webkit-scrollbar {
+    display: none;
+}
+.city_btn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+.city_icon {
+    display: inline-block;
+    width: 90px;
+    border-radius: 50%;
+    margin: 5px;
+    box-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+.dash_button {
+    margin-bottom: 1.2em;
+    width: 85%;
+    font-size: 0.8em;
+}
+.messages {
+    color: red;
+}
+.dashboard {
+    padding: 5px;
+    /* border: 2px solid white;
+    border-radius: 10px; */
+}
+.profile_pic {
+    max-width: 100%;
+    border-radius: 25px;
+    margin-bottom: 10px;
+}
+.city {
+    width: 100%;
+    border-radius: 0.6em;
+}
+.bottom {
+    color: black;
+}
+.city_text {
+    font-weight: lighter;
+    margin-top: 2px;
+    text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+.event_input {
+    width: 100%;
+}
+.message_pic {
+    width: 100px;
+    border-radius: 10px;
+}
