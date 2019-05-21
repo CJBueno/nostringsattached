@@ -29,6 +29,31 @@ def register(request):
         request.session['logged_in_user'] = new_user.id
         return redirect('/success')
 
+def cities(request):
+    return render(request, 'nsa_app/admin.html')
+
+def create_city(request):
+    new_city = City.objects.create(name=request.POST['name'])
+    request.session['current_city'] = new_city.id
+    return redirect('/editcity/'+str(new_city.id))
+
+def editcity(request, city_id):
+    city = City.objects.get(id = city_id)
+    context = {
+        'city' : city,
+    }
+    return render(request, 'nsa_app/city_photos.html', context)
+
+def addcityphotos(request, city_id):
+    city = City.objects.get(id= city_id)
+    city.name = request.POST['name']
+    photo = request.FILES['photo']
+    wide_photo = request.FILES['wide_photo']
+    city.photo = photo
+    city.wide_photo = wide_photo
+    city.save()
+    return redirect('/events_feed/'+str(city.id))
+
 def user_info(request):
     user = User.objects.get(id=request.session['logged_in_user'])
     context = {

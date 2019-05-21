@@ -3,6 +3,10 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^cities$', views.cities),
+    url(r'^create_city$', views.create_city),
+    url(r'^editcity/(?P<city_id>\d+)$', views.editcity),
+    url(r'^addcityphotos/(?P<city_id>\d+)$', views.addcityphotos),
     url(r'^signup$', views.signup),
     url(r'^register$', views.register),
     url(r'^login$', views.login),
